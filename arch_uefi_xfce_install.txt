@@ -1,0 +1,179 @@
+// Simple Steps to install Arch Linux in UEFI mode
+// with the Xfce Desktop Environment
+
+Set the keyboard layout:
+	loadkeys fr-latin1
+
+
+Partition the disks:
+	/dev/sda1 => 512M => EFI partition	(boot)
+	/dev/sda2 => 30G => linux partition (root)
+	/dev/sda3 => 4G => linux swap		(swap)
+	/dev/sda4 => 60G => linux partition	(home)
+
+
+Format the partitions:
+	mkfs.fat -F32 /dev/sda1
+	mkfs.ext4 /dev/sda2
+	mkfs.ext4 /dev/sda4
+	mkswap /dev/sda3
+	swapon /dev/sda3
+
+
+Mount the file systems:
+	mount /dev/sda2 /mnt
+	mkdir /mnt/home
+	mount /dev/sda4 /mnt/home
+	lsblk
+
+
+Installation:
+	pacstrap /mnt base base-devel linux linux-firmware
+	genfstab -U /mnt >> /mnt/etc/fstab
+	arch-chroot /mnt
+	ln -sf /usr/share/zoneinfo/Africa/Algiers /etc/localtime
+	hwclock --systohc
+	pacman -S nano
+	nano /etc/locale.gen
+		Uncomment en_US.UTF-8 UTF-8
+	locale-gen
+	nano /etc/vconsole.conf
+		KEYMAP=fr-latin1
+
+
+Network configuration:
+	nano /etc/hostname
+		myhostname
+	nano /etc/hosts
+		127.0.0.1	localhost
+		::1			localhost
+		127.0.1.1	myhostname.localdomain	myhostname
+	pacman -S networkmanager
+		systemctl enable NetworkManager.service
+
+
+Root password:
+	passwd
+
+
+Boot loader:
+	pacman -S grub efibootmgr
+	mkdir /boot/efi
+	mount /dev/sda1 /boot/efi
+	lsblk
+	grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+	grub-mkconfig -o /boot/grub/grub.cfg
+	mkdir /boot/efi/EFI/BOOT
+	cp /boot/efi/EFI/GRUB/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
+	nano /boot/efi/startup.nsh
+		bcfg boot add 1 fs0:\EFI\GRUB\grubx64.efi "My GRUB bootloader"
+	intel cpu:
+		pacman -S intel-ucode
+	amd cpu:
+		pacman -S amd-ucode
+
+
+Reboot:
+	exit 
+	umount -R /mnt
+	reboot
+
+
+Users and groups:
+	useradd -m -g users -G wheel -s /bin/bash username
+	passwd username
+
+
+Privilege elevation:
+	EDITOR=nano visudo
+		Uncomment this line: # %wheel ALL=(ALL) ALL
+
+
+Login as user:
+	exit
+	login by using your username
+
+
+Graphical user interface:
+	pacman -S xorg-server xfce4 xfce4-goodies lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+	echo “exec startxfce4” > ~/.xinitrc
+	systemctl enable lightdm.service
+	reboot
+
+
+File manager functionality:
+	pacman -S gvfs gvfs-mtp ntfs-3g exfat-utils
+	
+
+Audio driver:
+	pacman -S pulseaudio pulseaudio-alsa pavucontrol
+
+
+Video driver:
+	nvidia gpu:
+		pacman -S nvidia nvidia-utils nvidia-settings
+	
+	
+Monitoring:
+	pacman -S htop nethogs
+	
+	
+Fonts & icons:
+	pacman -S ttf-dejavu ttf-roboto ttf-liberation noto-fonts
+	pacman -S papirus-icon-theme
+	
+	
+Archiver:
+	pacman -S xarchiver 
+	pacman -S arj binutils bzip2 cpio gzip lhasa lrzip lz4   
+	pacman -S lzip lzop p7zip tar unarj unrar unzip xz zip zstd
+	
+	
+Useful Apps:
+	pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord
+	pacman -S smplayer gimp poppler-glib ghostscript gparted git evince alacarte sqlitebrowser network-manager-applet
+	pacman -S flameshot code neofetch viewnior qbittorrent picard galculator catfish youtube-dl 
+
+
+Terminal Customization:
+	pacman -S bash-completion
+	nano ~/.bashrc, and add this:
+		source /usr/share/git/completion/git-prompt.sh
+		PS1='[\[\e[36m\]\u@\h\[\e[m\] \[\e[32m\]\W\[\e[m\]\[\e[31m\]$(__git_ps1 " (%s)")\[\e[m\]]\$ '
+	nano /etc/bash.bashrc, and add this:
+		source /usr/share/git/completion/git-prompt.sh
+		source /usr/share/bash-completion/bash_completion
+		PS1='[\[\e[31m\]\u@\h\[\e[m\] \[\e[32m\]\W\[\e[m\]\[\e[31m\]$(__git_ps1 " (%s)")\[\e[m\]]\$ '
+
+
+Python:
+	pacman -S python tk tcl
+
+
+Printer:
+	pacman -S cups cups-pdf gutenprint
+	systemctl enable org.cups.cupsd.service
+	systemctl start org.cups.cupsd.service
+
+
+Install from aur:
+	google-chrome xdman breeze-default-cursor-theme nvm postman-bin
+	
+	nvm config:
+		nano ~/.bashrc, and add this line:
+			source /usr/share/nvm/init-nvm.sh
+
+
+Optional:
+	enable multilib:
+		nano /etc/pacman.conf
+			uncomment the "multilib" line:
+			[Multilib]
+			Include = /etc/pacman.d/mirrorlist
+
+	arduino:
+		pacman -S arduino arduino-avr-core arduino-builder arduino-ctags arduino-docs
+			gpasswd -a reda uucp
+			gpasswd -a reda lock
+			modprobe cdc_acm
+			reboot
