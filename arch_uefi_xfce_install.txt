@@ -119,7 +119,7 @@ Monitoring:
 	
 	
 Fonts & icons:
-	pacman -S ttf-dejavu ttf-roboto ttf-liberation noto-fonts
+	pacman -S ttf-dejavu ttf-roboto ttf-liberation noto-fonts adobe-source-han-sans-otc-fonts
 	pacman -S papirus-icon-theme
 	
 	
