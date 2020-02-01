@@ -37,6 +37,10 @@ Installation:
 	nano /etc/locale.gen
 		Uncomment en_US.UTF-8 UTF-8
 	locale-gen
+	nano /etc/rc.conf
+		LANGUAGE="en_US.UTF-8"
+	nano /etc/locale.conf:
+		LANG="en_US.UTF-8"
 	nano /etc/vconsole.conf
 		KEYMAP=fr-latin1
 
@@ -130,7 +134,7 @@ Archiver:
 	
 	
 Useful Apps:
-	pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord
+	pacman -S chromium firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord
 	pacman -S smplayer gimp poppler-glib ghostscript gparted git evince alacarte sqlitebrowser network-manager-applet
 	pacman -S flameshot code neofetch viewnior qbittorrent picard galculator catfish youtube-dl 
 
@@ -157,7 +161,10 @@ Printer:
 
 
 Install from aur:
-	google-chrome xdman breeze-default-cursor-theme nvm postman-bin
+	git clone https://aur.archlinux.org/yay.git
+		cd yay
+		makepkg -si
+	yay -S xdman breeze-default-cursor-theme nvm postman-bin
 	
 	nvm config:
 		nano ~/.bashrc, and add this line:
