@@ -98,6 +98,12 @@ Graphical user interface:
 	reboot
 
 
+Pacman discard unused packages weekly:
+	pacman -S pacman-contrib
+	systemctl start paccache.timer
+	systemctl enable paccache.timer
+
+
 Fonts:
 	pacman -S ttf-dejavu ttf-roboto ttf-liberation noto-fonts adobe-source-han-sans-otc-fonts noto-fonts-emoji
 
