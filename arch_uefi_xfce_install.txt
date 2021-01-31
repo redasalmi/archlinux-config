@@ -37,6 +37,8 @@ Installation:
 	nano /etc/locale.gen
 		Uncomment en_US.UTF-8 UTF-8
 	locale-gen
+	nano /etc/locale.conf
+		LANG=en_US.UTF-8
 	nano /etc/vconsole.conf
 		KEYMAP=fr-latin1
 
@@ -48,6 +50,8 @@ Network configuration:
 		127.0.0.1	localhost
 		::1			localhost
 		127.0.1.1	myhostname.localdomain	myhostname
+	pacman -S networkmanager
+		systemctl enable NetworkManager.service
 
 
 Root password:
@@ -55,7 +59,7 @@ Root password:
 
 
 Boot loader:
-	pacman -S grub efibootmgr
+	pacman -S grub efibootmgr os-prober
 	mkdir /boot/EFI
 	mount /dev/sda1 /boot/EFI
 	grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
@@ -76,18 +80,13 @@ Users and groups:
 		Uncomment this line: # %wheel ALL=(ALL) ALL
 
 
-NetworkManager:
-	pacman -S networkmanager
-		systemctl enable NetworkManager.service
-
-
 Reboot:
 	exit 
 	umount -R /mnt
 	reboot
 
 
-Graphical user interface:
+Desktop Environment:
 	pacman -S xorg-server xfce4 xfce4-goodies lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
 	NumLock on by default:
 		pacman -S numlockx
@@ -122,7 +121,7 @@ Video driver:
 	
 	
 Monitoring:
-	pacman -S htop nethogs
+	pacman -S htop bpytop nethogs
 	
 	
 Archiver:
@@ -132,9 +131,10 @@ Archiver:
 	
 	
 Useful Apps:
-	pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord terminator
-	pacman -S smplayer gimp poppler-glib ghostscript gparted git evince alacarte sqlitebrowser network-manager-applet
-	pacman -S flameshot neofetch viewnior qbittorrent picard galculator catfish youtube-dl 
+	pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord 
+	pacman -S smplayer gimp inkscape krita poppler-glib ghostscript gparted git evince alacarte 
+	pacman -S network-manager-applet flameshot neofetch viewnior qbittorrent picard galculator 
+	pacman -S seahorse audacity kazam terminator sqlitebrowser catfish youtube-dl
 
 
 Python:
@@ -143,22 +143,8 @@ Python:
 
 Printer:
 	pacman -S cups cups-pdf gutenprint
-	systemctl enable org.cups.cupsd.service
-	systemctl start org.cups.cupsd.service
-
-
-Install from aur:
-	git clone https://aur.archlinux.org/yay.git
-		cd yay
-		makepkg -si
-	yay -S google-chrome visual-studio-code-bin xdman nvm postman-bin oh-my-bash-git ocs-url
-	
-
-Theme & icons: 
-	install theme with ocs-url from https://www.xfce-look.org/browse/cat/
-	theme: orchis-dark
-	icons: tela-black
-	cursor: pacman -S capitaine-cursors
+	systemctl enable cups.socket
+	systemctl start cups.socket
 
 
 Grub Customization:
@@ -169,12 +155,14 @@ Grub Customization:
 		grub-mkconfig -o /boot/grub/grub.cfg
 
 
-Terminal Customization:
-	pacman -S bash-completion
-	nano /usr/share/oh-my-bash/bashrc ~/.bashrc
-	nano ~/.bashrc
-		OSH_THEME="agnoster"
-	nvm config:
-		nano ~/.bashrc, and add this line:
-			source /usr/share/nvm/init-nvm.sh
-	bash
+Install from aur:
+	git clone https://aur.archlinux.org/paru-bin.git
+		cd paru-bin
+		makepkg -si
+	paru -S google-chrome visual-studio-code-bin xdman nvm postman-bin ocs-url jdownloader2
+	paru -S mongodb-bin mongodb-tools-bin mongodb-compass
+	
+
+Theme & icons:
+	pacman -S papirus-icon-theme
+	install orchis-dark theme with ocs-url from https://www.xfce-look.org/
