@@ -11,9 +11,9 @@ Update the system clock:
 
 
 Partition the disks:
-	/dev/sda1 => 550M => EFI partition	(boot)
-	/dev/sda2 => 4G => linux swap		(swap)
-	/dev/sda3 => 60G => linux partition	(root)
+	/dev/sda1 => 550M => EFI partition	  (boot)
+	/dev/sda2 => 4G   => linux swap		    (swap)
+	/dev/sda3 => 60G  => linux partition	(root)
 
 
 Format the partitions:
@@ -28,17 +28,23 @@ Mount the file system:
 
 
 Installation:
-	pacstrap /mnt base base-devel linux linux-firmware
+	pacstrap /mnt base base-devel linux linux-firmware nano
+	
 	genfstab -U /mnt >> /mnt/etc/fstab
+	
 	arch-chroot /mnt
+
 	ln -sf /usr/share/zoneinfo/Africa/Algiers /etc/localtime
 	hwclock --systohc
-	pacman -S nano
+
 	nano /etc/locale.gen
 		Uncomment en_US.UTF-8 UTF-8
+	
 	locale-gen
+	
 	nano /etc/locale.conf
 		LANG=en_US.UTF-8
+
 	nano /etc/vconsole.conf
 		KEYMAP=fr-latin1
 
@@ -46,10 +52,12 @@ Installation:
 Network configuration:
 	nano /etc/hostname
 		myhostname
+
 	nano /etc/hosts
 		127.0.0.1	localhost
 		::1		localhost
 		127.0.1.1	myhostname.localdomain	myhostname
+
 	pacman -S networkmanager
 		systemctl enable NetworkManager.service
 
@@ -73,38 +81,56 @@ CPU microcode:
 		pacman -S amd-ucode
 
 
-Users and groups:
-	useradd -m -g users -G wheel -s /bin/bash username
-	passwd username
-	EDITOR=nano visudo
-		Uncomment this line: # %wheel ALL=(ALL) ALL
-
-
 Reboot:
 	exit 
 	umount -R /mnt
 	reboot
 
 
+zsh Setup:
+	pacman -S zsh zsh-autosuggestions zsh-completions
+	chsh -s /usr/bin/zsh
+
+
+Users and groups:
+	useradd -m -g users -G wheel -s /usr/bin/zsh username
+	passwd username
+	EDITOR=nano visudo
+		Uncomment this line: # %wheel ALL=(ALL) ALL
+
+
 Desktop Environment:
 	pacman -S xorg-server xfce4 xfce4-goodies lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+
 	NumLock on by default:
 		pacman -S numlockx
 		nano /etc/lightdm/lightdm.conf
 			[Seat:*]
 			greeter-setup-script=/usr/bin/numlockx on
+
 	systemctl enable lightdm.service
 	reboot
 
 
-Pacman discard unused packages weekly:
-	pacman -S pacman-contrib
+shell prompt Setup:
+	pacman -S starship powerline-fonts noto-fonts-emoji
+
+	nano ~/.zshrc
+		eval "$(starship init zsh)"
+
+
+Pacman maintenance:
+	pacman -S pacman-contrib // discard packages cache
 	systemctl start paccache.timer
 	systemctl enable paccache.timer
 
+	pacman -S reflector // update pacman mirror list
+	systemctl start reflector.timer
+	systemctl enable reflector.timer
+
 
 Fonts:
-	pacman -S ttf-dejavu ttf-roboto ttf-liberation noto-fonts adobe-source-han-sans-otc-fonts noto-fonts-emoji
+	pacman -S ttf-dejavu ttf-roboto ttf-liberation noto-fonts adobe-source-han-sans-otc-fonts
 
 
 File manager functionality:
@@ -159,6 +185,7 @@ Install from aur:
 	git clone https://aur.archlinux.org/paru-bin.git
 		cd paru-bin
 		makepkg -si
+
 	paru -S google-chrome visual-studio-code-bin xdman nvm postman-bin ocs-url jdownloader2
 	paru -S mongodb-bin mongodb-tools-bin mongodb-compass
 	
