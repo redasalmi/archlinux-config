@@ -88,7 +88,7 @@ Reboot:
 
 
 zsh Setup:
-	pacman -S zsh zsh-autosuggestions zsh-completions
+	pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions 
 	chsh -s /usr/bin/zsh
 
 
