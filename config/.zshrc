@@ -7,8 +7,6 @@ zstyle ':completion::complete:*' gain-privileges 1
 
 
 alias rm-orphans="sudo pacman -Qtdq | sudo pacman -Rns -"
-alias opapifront="cd /home/reda/prog/opapilles/frontend"
-alias opapiback="cd /home/reda/prog/opapilles/backend"
 
 
 export ANDROID_HOME=/opt/android-sdk
@@ -24,4 +22,3 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
