@@ -48,6 +48,11 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 setopt COMPLETE_ALIASES
 zstyle ':completion::complete:*' gain-privileges 1
 
+# history config
+setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+
 # history search
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -64,6 +69,11 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
 # exports
+export HISTTIMEFORMAT="[%F %T] "
+export HISTFILE=~/.zsh_history
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+
 export ANDROID_HOME=/opt/android-sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -78,8 +88,8 @@ alias rm-orphans="sudo pacman -Qtdq | sudo pacman -Rns -"
 alias slimer-frontend="cd /home/reda/prog/slimer/frontend"
 alias slimer-backend="source /home/reda/prog/slimer/backend.sh"
 
-alias yooboot-frontend="cd /home/reda/prog/yooboot/frontend && nvm use 12"
-alias yooboot-backend="cd /home/reda/prog/yooboot/backend && nvm use 12"
+alias yooboot-frontend="cd /home/reda/prog/yooboot/frontend && fnm use 12"
+alias yooboot-backend="cd /home/reda/prog/yooboot/backend && fnm use 12"
 
 alias reflector-update="sudo reflector --country France,Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 alias rm-orphans="sudo pacman -Qtdq | sudo pacman -Rns -"
