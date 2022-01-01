@@ -83,24 +83,20 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
 
 # aliases
-alias rm-orphans="sudo pacman -Qtdq | sudo pacman -Rns -"
-
 alias slimer-frontend="cd /home/reda/prog/slimer/frontend"
 alias slimer-backend="source /home/reda/prog/slimer/backend.sh"
-
-alias yooboot-frontend="cd /home/reda/prog/yooboot/frontend && fnm use 12"
-alias yooboot-backend="cd /home/reda/prog/yooboot/backend && fnm use 12"
-
 alias reflector-update="sudo reflector --country France,Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 alias rm-orphans="sudo pacman -Qtdq | sudo pacman -Rns -"
 
 # functions
 function lighthouse-mobile() {
   lighthouse $1 --view
+  rm -f *.report.html
 }
 
 function lighthouse-desktop {
   lighthouse $1 --view --preset="desktop"
+  rm -f *.report.html
 }
 
 # fnm
