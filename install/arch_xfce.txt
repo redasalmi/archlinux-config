@@ -28,7 +28,7 @@ Mount the file system:
 
 
 Installation:
-	pacstrap /mnt base base-devel linux linux-firmware nano
+	pacstrap /mnt base base-devel linux linux-zen linux-firmware nano
 	
 	genfstab -U /mnt >> /mnt/etc/fstab
 	
@@ -115,9 +115,6 @@ Desktop Environment:
 shell prompt Setup:
 	pacman -S starship powerline-fonts noto-fonts-emoji
 
-	nano ~/.zshrc
-		eval "$(starship init zsh)"
-
 
 Pacman maintenance:
 	pacman -S pacman-contrib // discard packages cache
@@ -138,33 +135,23 @@ File manager functionality:
 	
 
 Audio driver:
-	pacman -S pulseaudio pulseaudio-alsa pavucontrol
+	pacman -S pipewire pipewire-alsa pipewire-jack pipewire-pulse pavucontrol
 
 
 Video driver:
 	nvidia gpu:
-		pacman -S nvidia nvidia-utils nvidia-settings
+		pacman -S nvidia nvidia-utils nvidia-settings nvidia-dkms
 	
 	
 Monitoring:
 	pacman -S htop bpytop nethogs
-	
-	
-Archiver:
-	pacman -S xarchiver 
-	pacman -S arj binutils bzip2 cpio gzip lhasa lrzip lz4   
-	pacman -S lzip lzop p7zip tar unarj unrar unzip xz zip zstd
-	
+
 	
 Useful Apps:
 	pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord 
-	pacman -S smplayer gimp inkscape krita poppler-glib ghostscript gparted git evince alacarte 
+	pacman -S mpv gimp inkscape krita poppler-glib ghostscript gparted git evince alacarte 
 	pacman -S network-manager-applet flameshot neofetch viewnior qbittorrent picard galculator 
-	pacman -S seahorse audacity kazam terminator sqlitebrowser catfish youtube-dl
-
-
-Python:
-	pacman -S python tk tcl
+	pacman -S seahorse audacity kazam terminator sqlitebrowser catfish yt-dlp python tk tcl
 
 
 Printer:
@@ -186,10 +173,9 @@ Install from aur:
 		cd paru-bin
 		makepkg -si
 
-	paru -S google-chrome visual-studio-code-bin xdman nvm postman-bin ocs-url jdownloader2
-	paru -S mongodb-bin mongodb-tools-bin mongodb-compass
+	paru -S google-chrome visual-studio-code-bin xdman fnm postman-bin ocs-url jdownloader2
+	paru -S mongodb-bin mongodb-tools-bin mongodb-compass peazip-qt-bin
 	
 
 Theme & icons:
-	pacman -S papirus-icon-theme
-	install orchis-dark theme with ocs-url from https://www.xfce-look.org/
+	install orchis-dark theme and tela-black icons with ocs-url from https://www.xfce-look.org/
