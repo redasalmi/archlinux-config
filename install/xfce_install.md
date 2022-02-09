@@ -1,7 +1,7 @@
 ### xfce:
 
 ```sh
-  pacman -S xorg-server xfce4 xfce4-goodies lightdm lightdm-gtk-greeter   lightdm-gtk-greeter-settings numlockx
+  pacman -S xorg-server xfce4 xfce4-goodies lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings numlockx
 
   nano /etc/lightdm/lightdm.conf
     [Seat:*]

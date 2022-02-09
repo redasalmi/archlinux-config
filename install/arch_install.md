@@ -63,9 +63,9 @@
     myhostname
 
   nano /etc/hosts
-    127.0.0.1	    localhost
-    ::1		        localhost
-    127.0.1.1	    myhostname.localdomain myhostname
+    127.0.0.1     localhost
+    ::1           localhost
+    127.0.1.1     myhostname.localdomain myhostname
 
   pacman -S networkmanager
   systemctl enable NetworkManager.service
