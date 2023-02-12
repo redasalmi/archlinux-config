@@ -124,7 +124,7 @@
 
 ### Install a Desktop Environment:
 
-- [XFCE](./xfce_install.md)
+- [Desktop Environments](./desktop-environments.md)
 
 ### Install Useful packages:
 

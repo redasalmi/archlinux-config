@@ -47,7 +47,7 @@
 ### Useful packages:
 
 ```sh
-  pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord mpv gimp inkscape krita blender godot poppler-glib ghostscript gparted git xreader network-manager-applet flameshot neofetch viewnior qbittorrent galculator seahorse audacity yt-dlp
+  pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord mpv gimp inkscape krita blender godot poppler-glib ghostscript gparted git xreader network-manager-applet flameshot neofetch viewnior qbittorrent galculator seahorse audacity yt-dlp terminator
 ```
 
 ### Printer:
