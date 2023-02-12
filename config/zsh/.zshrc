@@ -9,11 +9,12 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 setopt COMPLETE_ALIASES
 zstyle ':completion::complete:*' gain-privileges 1
 
-source ~/.zsh/keys.zsh
-source ~/.zsh/history.zsh
-source ~/.zsh/exports.zsh
 source ~/.zsh/aliases.zsh
+source ~/.zsh/exports.zsh
 source ~/.zsh/functions.zsh
+source ~/.zsh/history.zsh
+source ~/.zsh/keys.zsh
+source ~/.zsh/plugins.zsh
 
 # fnm
 export PATH=/home/reda/.fnm:$PATH
