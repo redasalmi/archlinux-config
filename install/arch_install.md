@@ -17,6 +17,7 @@
   /dev/sda1 => 550M  => EFI partition     # boot
   /dev/sda2 => 4G    => linux swap        # swap
   /dev/sda3 => 60G   => linux partition   # root
+  /dev/sda4 => 100G   => linux partition   # home
 ```
 
 ### Format the partitions:
@@ -26,18 +27,21 @@
   mkswap /dev/sda2
   swapon /dev/sda2
   mkfs.ext4 /dev/sda3
+  mkfs.ext4 /dev/sda4
 ```
 
 ### Mount the file system:
 
 ```sh
   mount /dev/sda3 /mnt
+  mkdir /mnt/home
+  mount /dev/sda4 /mnt/home
 ```
 
 ### Installation:
 
 ```sh
-  pacstrap /mnt base base-devel linux linux-zen linux-firmware nano
+  pacstrap /mnt base base-devel linux linux-firmware nano
   genfstab -U /mnt >> /mnt/etc/fstab
   arch-chroot /mnt
 

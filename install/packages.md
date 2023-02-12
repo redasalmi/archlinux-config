@@ -8,11 +8,9 @@
 
 ```sh
   pacman -S pacman-contrib
-  systemctl start paccache.timer
   systemctl enable paccache.timer
 
   pacman -S reflector
-  systemctl start reflector.timer
   systemctl enable reflector.timer
 ```
 
@@ -37,27 +35,26 @@
 ### Video driver:
 
 ```sh
-  pacman -S nvidia nvidia-utils nvidia-settings nvidia-dkms # nvidia gpu only
+  pacman -S nvidia nvidia-utils nvidia-settings # nvidia gpu only
 ```
 
 ### Monitoring:
 
 ```sh
-  pacman -S htop bpytop nethogs
+  pacman -S htop gnome-system-monitor
 ```
 
 ### Useful packages:
 
 ```sh
-  pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord mpv gimp inkscape krita poppler-glib ghostscript gparted git evince alacarte network-manager-applet flameshot neofetch viewnior qbittorrent picard galculator seahorse audacity kazam terminator sqlitebrowser catfish yt-dlp python tk tcl
+  pacman -S firefox libreoffice-fresh libreoffice-fresh-en-gb libreoffice-fresh-fr discord mpv gimp inkscape krita blender godot poppler-glib ghostscript gparted git xreader network-manager-applet flameshot neofetch viewnior qbittorrent galculator seahorse audacity yt-dlp
 ```
 
 ### Printer:
 
 ```sh
   pacman -S cups cups-pdf gutenprint
-  systemctl enable cups.socket
-  systemctl start cups.socket
+  systemctl enable --now cups.socket
 ```
 
 ### Grub customization:
@@ -77,9 +74,9 @@
   cd paru-bin
   makepkg -si
 
-  paru -S google-chrome visual-studio-code-bin xdman fnm postman-bin ocs-url jdownloader2 mongodb-bin mongodb-tools-bin mongodb-compass peazip-qt-bin
+  paru -S google-chrome visual-studio-code-bin fnm postman-bin ocs-url jdownloader2 peazip-gtk2-bin
 ```
 
 ### Theme & icons:
 
-Install orchis-dark theme and tela-black icons from [https://www.xfce-look.org/](https://www.xfce-look.org/)
+Install orchis-dark theme and tela-black-icons from [https://www.xfce-look.org/](https://www.xfce-look.org/)
